@@ -5,7 +5,7 @@ import style from './Login.module.css'
 export default function Login() {
 
     const [data, setData] = useState({
-        numeroRegistro: '',
+        registroMilitar: '',
         senha: ''
     })
 
@@ -13,7 +13,7 @@ export default function Login() {
 
     useEffect(() => {
 
-        if (data.numeroRegistro.length > 6 && data.senha.length > 8) {
+        if (data.registroMilitar.length > 6 && data.senha.length > 8) {
             setButton(false)
         } else {
             setButton(true)
@@ -21,6 +21,32 @@ export default function Login() {
 
     }, [data]  )
 
+
+    async function fazerLogin(){
+
+        const response = await fetch('http://3.239.122.48:3000/login',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+
+        const dados = await response.json()
+        if (response.status === 200) {
+            window.localStorage.setItem('token', dados.token)
+            console.log(dados.token)
+            alert('Login efetuado com sucesso')
+            window.location.href = '/home'
+            return
+        }
+
+        else {
+            alert(dados.error)
+        }
+
+
+    }
 
     return (
         <>
@@ -33,12 +59,12 @@ export default function Login() {
                 <section className={style.formulario}>
 
                     <div>
-                        <label htmlFor="numeroRegistro">Numero de Registro</label>
+                        <label htmlFor="registroMilitar">Numero de Registro Militar</label>
                         <input
-                            id="numeroRegistro"
+                            id="registroMilitar"
                             type="text"
-                            value={data.numeroRegistro}
-                            onChange={e => setData({ ...data, numeroRegistro: e.target.value })}
+                            value={data.registroMilitar}
+                            onChange={e => setData({ ...data, registroMilitar: e.target.value })}
                             placeholder='Entre com seu numero de Registro' />
                     </div>
                     <div>
@@ -53,8 +79,7 @@ export default function Login() {
 
                     <div>
                         <button disabled={button} type="submit" onClick={() =>{
-                            window.localStorage.setItem('token', '123')
-                            window.location.href = '/home'
+                            fazerLogin()
                         }}>Entrar</button>
                         <button onClick={() => window.location.href = '/register'}>CADASTRAR-SE</button>
                     </div>

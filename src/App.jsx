@@ -8,7 +8,7 @@ import appStyle from './App.module.css'
 
 export function App() {
   return (
-    <>
+    <div id={appStyle.base}>
       <Header />
       <main className={appStyle.main}>
         
@@ -33,6 +33,6 @@ export function App() {
 
 
       </main>
-    </>
+    </div>
   )
 }

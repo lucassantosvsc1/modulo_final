@@ -26,6 +26,36 @@ export default function Register() {
 
     }, [data])
 
+    async function fazerCadastro() {
+
+        const credenciaisLogin = {
+            registroMilitar: data.numeroRegistro,
+            senha: data.senha,
+            nome: data.nome
+            
+        }
+
+        const response = await fetch('http://3.239.122.48:3000/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credenciaisLogin)
+    })
+
+        const dados = await response.json()
+        if (response.status === 201) {
+            alert('Cadastro efetuado com sucesso')
+            window.location.href = '/'
+            return
+        }
+
+        else {
+            alert(dados.error)
+        }
+
+    }
+
     return (
         <>
             <Header />
@@ -75,8 +105,7 @@ export default function Register() {
 
                     <div>
                         <button disabled={button} type="submit" onClick={() =>{
-                            window.localStorage.setItem('token', '123')
-                            window.location.href = '/home'
+                            fazerCadastro()
                         }}>CADASTRAR</button>
                         <button onClick={() => window.location.href = '/login'}>FAZER LOGIN</button>
                     </div>

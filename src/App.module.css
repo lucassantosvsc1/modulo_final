@@ -1,6 +1,14 @@
+.base{
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important; 
+}
+
 .main {
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 .main section {
@@ -11,11 +19,18 @@
     padding: 10px;
 }
 
+.main section img{
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 8px;
+}
+
 .main h1 {
     color: #000;
     text-align: center;
     font-family: Kanit;
-    font-size: 50px;
+    font-size: 35px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -30,11 +45,11 @@
     align-items: center;
     flex-shrink: 0;
     border-radius: 8px;
-    border-color: #00000041;
+    border-color: #ccc;
     background: #006635;
     color: #FFF;
     font-family: Kanit;
-    font-size: 35px;
+    font-size: 25px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
